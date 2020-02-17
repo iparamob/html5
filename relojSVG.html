@@ -1,0 +1,91 @@
+<!--
+Modificar el reloj animado basado en SVG, introduciendo la hora textual en un cajetín en la mitad superior, pero dentro de la esfera del reloj.
+
+Recomendación: utilizar la marca text de SVG.
+http://www.w3schools.com/svg/svg_text.asp
+
+Mejoras adicionales para interesados en profundizar más:
+
+- Añadir una manecilla de décimas de segundo, con un circulo pequeño en la mitad inferior del reloj, como tienen algunos relojes analógicos.
+
+- Añadir a voluntad más elementos en la esfera del reloj.
+-->
+<!DOCTYPE html>
+<html>
+<head><title>Galería</title><meta charset="UTF-8">
+<script type="text/javascript" src="zepto.min.js" ></script>
+<script>
+  function animar() { 
+    var d = new Date();
+    var s = d.getSeconds();   // grados = segundos * 6 
+    var m = d.getMinutes();   // grados = minutos * 6 
+    var h = d.getHours();
+    var hh = h*30 + m/2;  // grados de la manecilla de horas
+    $("#tex").html(("0" + h).slice(-2) + ":" + ("0" + m).slice(-2) + ":" + ("0" + s).slice(-2));
+    //alert($("#tex").innerHtml);
+    $("#hor").attr("transform", "rotate(" + hh + " 80 80)");
+    $("#min").attr("transform", "rotate(" + m*6 + " 80 80)");
+    $("#seg").attr("transform", "rotate(" + s*6 + " 80 80)");
+    $("#segCir").attr("transform", "rotate(" + s*6 + " 80 80)");
+  }
+  $(function(){
+    setInterval(animar, 1000);
+    animar();
+  })
+</script>
+    <style>
+      #reloj {
+        stroke: black;
+        stroke-linecap: round;
+        fill: #eef;
+      }
+      #esfera { stroke-width: 3px;}
+      #marcas { stroke-width: 2; }
+      #hor {stroke-width: 5px;}
+      #min {stroke-width: 3px;}
+      #seg {stroke-width: 1px;}
+      #tex,#numeros {
+        font-family: sans-serif; font-size: 7pt; font-weight: bold;
+        text-anchor: middle; stroke: none; fill: black;
+      }
+      #recuadro {
+        stroke-width:1;
+        stroke:rgb(0,0,0);
+      }
+    </style>
+</head>
+<body>
+  <h1>Reloj</h1>
+
+  <svg id="reloj">
+    <circle id='esfera'  cx='80' cy='80' r='50' />
+    <g id="hora">
+      <rect id="recuadro" x="60" y="58" width="40" height="15" />
+      <text id="tex" x="80" y="70"></text>
+    </g>
+    <line id="hor" x1='80' y1='80' x2='80' y2='50' />
+    <line id="min" x1='80' y1='80' x2='80' y2='40' />
+    <line id="seg" x1='80' y1='80' x2='80' y2='30' />
+    <circle id="segCir" cx='80' cy='35' r='5' />
+    <g id="marcas">
+      <line x1='80' y1='35.000' x2='80.00' y2='40.00'/>
+      <line x1='102.50' y1='41.03' x2='100.00' y2='45.36'/>
+      <line x1='118.97' y1='57.50' x2='114.64' y2='60.00'/>
+      <line x1='125.00' y1='80.00' x2='120.00' y2='80.00'/>
+      <line x1='118.97' y1='102.50' x2='114.64' y2='100.00'/>
+      <line x1='102.50' y1='118.97' x2='100.00' y2='114.64'/>
+      <line x1='80.00' y1='125.00' x2='80.00' y2='120.00'/>
+      <line x1='57.50' y1='118.97' x2='60.00' y2='114.64'/>
+      <line x1='41.03' y1='102.50' x2='45.36' y2='100.00'/>
+      <line x1='35.000' y1='80.00' x2='40.00' y2='80.00'/>
+      <line x1='41.03' y1='57.50' x2='45.36' y2='60.00'/>
+      <line x1='57.50' y1='41.03' x2='60.00' y2='45.36'/>
+    </g>
+
+    <g id="numeros">
+      <text x="80" y="48">12</text><text x="115" y="83">3</text>
+      <text x="80" y="118">6</text><text x="45" y="83">9</text>
+    </g>          
+  </svg>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!--
+Explicación de la tarea
+
+Modificar el reloj animado basado en CANVAS, introduciendo la hora textual en un cajetin en la mitad superior, pero dentro de la esfera del reloj.
+
+Recomendación: utilizar los comandos de texto del CANVAS.
+- http://www.w3schools.com/html/html5_canvas.asp
+- http://www.w3schools.com/tags/ref_canvas.asp
+
+Mejoras adicionales para interesados en profundizar más:
+
+- Añadir una manecilla de décimas de segundo, con un circulo pequeño en la mitad inferior del reloj, como tienen algunos relojes analógicos.
+
+- Añadir a voluntad más elementos en la esfera del reloj.
+-->
+<!DOCTYPE html>
+<html>
+ <head><title>Reloj CANVAS</title><meta charset="UTF-8">
+    <script type="text/javascript" src="zepto.min.js"></script>
+    <script type="application/javascript">
+    function x2(n,i,x1,r) {return x1 + r*Math.sin(2*Math.PI*n/i);};
+    function y2(n,i,y1,r) {return y1 - r*Math.cos(2*Math.PI*n/i);};
+
+    function myLine(ctx,x1,y1,x2,y2,width,color) {
+      ctx.beginPath();           // comenzar nueva linea
+      ctx.moveTo(x1,y1);         // Comienzo de linea
+      ctx.lineTo(x2,y2);         // Final de linea
+
+      ctx.strokeStyle = color;   // color de línea
+      ctx.lineWidth = width;     // anchura de linea:  5 puntos
+      ctx.stroke();              // dibujar linea
+    }
+    function myCircle(ctx,x,y,r,width,color) {
+      ctx.beginPath();            // comenzar figura
+                                  // añadir arco (circulo entero):
+      ctx.arc(x,y,r,0,2*Math.PI); //  ctx.arc(x, y, r, start, stop)
+
+      ctx.strokeStyle = color;   // color de la línea del circulo
+      ctx.lineWidth = width;     // anchura de la línea del circulo
+      ctx.stroke();              // dibujar circulo
+    }
+    function myRectText(ctx,x,y,texto,textSize,rectWidth,rectHeight,width,color) {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = width;
+      ctx.strokeRect(x, y, rectWidth, rectHeight);
+      ctx.font = textSize + "px Arial";
+      ctx.fillText(texto,x+2,y+11);      
+    }
+
+    function mostrar_hora(ctx) {
+      var d = new Date();
+      var h = d.getHours();
+      var m = d.getMinutes();
+      var s = d.getSeconds();
+      var ms = d.getMilliseconds();
+      var hora = ("0" + h).slice(-2) + ":" + ("0" + m).slice(-2) + ":" + ("0" + s).slice(-2);
+      $('#tex').html(hora);
+
+      ctx.clearRect(0,0,140,140)  // borrar CANVAS
+
+      myCircle(ctx,80,80,50,3,"black");   // esfera del reloj
+
+      myLine(ctx,80,80,x2(h,12,80,30),y2(h,12,80,30),5,"grey"); // horas
+      myLine(ctx,80,80,x2(m,60,80,40),y2(m,60,80,40),3,"grey"); // min.
+      myLine(ctx,80,80,x2(s,60,80,50),y2(s,60,80,50),1,"red"); // seg.
+
+      myCircle(ctx,80,110,10,2,"black");   // esfera de la decimas
+      myLine(ctx,80,110,x2(ms,1000,80,10),y2(ms,1000,110,10),1,"red");   // manecilla de decimas
+
+      myLine(ctx,80,35.000,80.00,40.00,5,"black");
+      myLine(ctx,102.50,41.03,100.00,45.36,5,"black");
+
+      myLine(ctx,118.97,57.50,114.64,60.00,5,"black");
+
+      myLine(ctx,125.00,80.00,120.00,80.00,5,"black");
+      myLine(ctx,118.97,102.50,114.64,100.00,5,"black");
+      myLine(ctx,102.50,118.97,100.00,114.64,5,"black");
+      myLine(ctx,80.00,125.00,80.00,120.00,5,"black");
+      myLine(ctx,57.50,118.97,60.00,114.64,5,"black");
+      myLine(ctx,41.03,102.50,45.36,100.00,5,"black");
+      myLine(ctx,35.000,80.00,40.00,80.00,5,"black");
+      myLine(ctx,41.03,57.50,45.36,60.00,5,"black");
+      myLine(ctx,57.50,41.03,60.00,45.36,5,"black");
+
+      //myRectText(ctx,x,y,texto,textSize,rectWidth,rectHeight,width,color)
+      myRectText(ctx,60,58,hora,9,40,15,1,"black");
+    }
+    $(function() {
+      var c=document.getElementById("myCanvas"); // obtiene CANVAS
+      if (c.getContext) {                     // CANVAS soportado?
+        var ctx = c.getContext("2d");         // define contexto 2D
+        mostrar_hora(ctx);
+
+        setInterval(function(){mostrar_hora(ctx);}, 1)
+      }
+    })
+  </script>
+ </head><body>           
+   <h4> Reloj CANVAS</h4>
+   <div id="tex">texto</div>
+   <canvas id="myCanvas" width="140" height="140"></canvas>
+</body></html>

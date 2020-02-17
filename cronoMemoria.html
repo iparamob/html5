@@ -1,0 +1,79 @@
+<!--
+Explicación de la tarea
+
+Añadir al cronómetro con memoria una lista debajo de los botones, que muestre los instantes en que el cronómetro ha parado de contar. La lista deberá vaciarse con el botón de inicializar del cronómetro. La lista deberá guardarse además en una variable de localStorage, para que los valores se guarden entre invocaciones sucesivas.
+
+Sugerencia: añadir un bloque <div> vacio debajo de los botones donde se guarden los
+instantes de parada como líneas HTML separadas por <br>. En cada parada se añadirá una
+nueva línea.
+
+Modificar además lo siguiente:
+
+- La respuesta al botón de inicializar, para no inicializar si se pulsa mientras el cronómetro está en marcha. Se sugiere comprobar “t === undefined” antes de inicializar.
+
+- Añadir los eventos tactiles tap y swipe sobre el body del cronómetro, para que las
+operaciones parar/arrancar e inicializar se puedan hacer con tap y swipe respectivamente.
+
+- Añadir una imagen de fondo con una esfera de cronómetro a la caja donde está el contador y posicionar el contador en la parte de la imagen donde estaría la cuenta en uno real, de forma que se visualice con más realismo. Se puede utilizar la imagen de cronómetro que se suministra con los ejemplos del módulo o buscar una en Internet. La lista de paradas estará debajo de la esfera.
+
+- Alojar el script como un recurso público en un servidor en la nube (Google Drive) para que pueda accederse por cualquier usuario desde cualquier navegador.
+
+-->
+<!DOCTYPE html>
+<html>
+<head><title>Cronómetro</title><meta charset="UTF-8">
+<style>
+    
+        h3 {
+            background-image: url('crono.jpg'); 
+            background-repeat: no-repeat;
+            text-align: center;         
+            width: 284px; 
+            height: 309px;
+        }
+
+        #crono {  
+            padding-top: 120px;
+            font-size: 50px;
+            font-family: monospace;
+        }
+</style>
+<script type="text/javascript" src="zepto.min.js" > </script>
+<script type="text/javascript" src="touch.js" > </script>
+<script type="text/javascript">
+  $(function(){
+    localStorage.c = (localStorage.c || "0.0");
+    localStorage.historial = (localStorage.historial || "[]");
+
+    var t, cl = $("#crono");
+    var panelParadas = $("#paradas");
+    var lstParadas = JSON.parse(localStorage.historial);
+ 
+    function mostrarParadas() { if (lstParadas.length > 0) {panelParadas.html("<div>Historial</div>---------<br>" + lstParadas.join("<br>"))} else {panelParadas.html(""); };}
+    function incr()     { localStorage.c = +localStorage.c + 0.1; }
+    function mostrar()  { cl.html((+localStorage.c).toFixed(1)); };
+    function arrancar() { t=setInterval(function(){incr(); mostrar()}, 100);};
+    function parar()    { clearInterval(t);  t=undefined; lstParadas.push((+localStorage.c).toFixed(1)); localStorage.historial=JSON.stringify(lstParadas); mostrarParadas(); };
+    function cambiar()  { if (!t) arrancar(); else parar(); };
+    function inicializar() { if (t === undefined) { localStorage.c="0.0"; localStorage.historial = "[]"; lstParadas.length=0; mostrarParadas(); mostrar();} }
+
+    $("#cambiar").on('click', cambiar);
+    $("#inicializar").on('click', inicializar);
+    $("#crono").on('tap', cambiar);
+    $("#crono").on('swipe', inicializar);
+
+    mostrar();
+    mostrarParadas();
+  });
+</script>
+</head>
+<body>
+<h2>Cronómetro</h2>
+
+<h3><div id="crono">0.0</div></h3>
+
+<button type="button" id="cambiar"> arrancar/parar </button>
+<button type="button" id="inicializar">  inicializar </button>
+<div id="paradas"></div>
+</body>
+</html>

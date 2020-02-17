@@ -1,0 +1,158 @@
+body {
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.main {
+        width:90%;
+      padding-top: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+           -webkit-border-radius: 25px;
+      -moz-border-radius: 25px;
+      border-radius: 25px;
+      border: 1px solid black; 
+      -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+      -moz-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+      box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+h1 {
+  font-size: 1.4em;
+  align: center;    
+}
+
+h2 {
+  font-size: 1.2em; 
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+header {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.clear {
+  clear: both;
+}
+
+    #appleNav {       
+      text-align: center;
+        list-style:none;
+        font-family: "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif; 
+        letter-spacing:-0.5px; 
+        font-size:13px;
+    }
+    
+    #appleNav ul {
+        display: inline-block;
+        list-style-type: none;
+    }
+    
+    #appleNav li { 
+      display:inline; 
+      float:left; 
+      border-right:1px solid #5d5d5d; 
+      border-left:1px solid #929292; 
+      border-bottom:1px solid #575757; 
+      border-top:1px solid #797979;   
+        text-align:center; 
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #787878), color-stop(0.5, #5E5E5E), color-stop(0.51, #707070), color-stop(1, #838383));
+        background-image: -moz-linear-gradient(center bottom, #787878 0%, #5E5E5E 50%, #707070 51%, #838383 100%);
+        background-color:#5f5f5f; /* Fallback */
+    }
+    
+    #appleNav li a { 
+      color:white; 
+      text-decoration:none; 
+      display:inline-block; 
+      outline:none; 
+      padding:10px;     
+    }
+    
+    #appleNav li:first-child {
+        -moz-border-radius:4px 0 0 4px;
+        -webkit-border-radius:4px 0 0 4px;
+        border-radius:4px 0 0 4px;        
+        border-left:none;
+    }
+    
+    /* The first child image - the logo - has to be centered. Because of the image dimensions, we manually need to shift it a bit. */
+    #appleNav li:first-child a img {
+       vertical-align:middle; margin-top:-2px;
+    }
+    
+    #appleNav li:last-child {
+        -moz-border-radius:0 4px 4px 0;
+        -webkit-border-radius:0 4px 4px 0;
+        border-radius:0 4px 4px 0;
+        border-right:none;
+    } 
+
+section {
+  clear: both;
+}
+
+ /* article */
+
+article {
+  width: 100%;
+}
+
+article h1 {
+  font-size: 1.4em;
+  padding-left: 10px;
+}
+
+article h2 {
+  font-size: 1.2em;
+  padding-left: 20px;
+}
+
+article ul {
+  padding-left: 30px; 
+}
+
+article p{
+  padding-left: 30px;   
+}
+
+#foto {
+  padding-left: 30px; 
+}
+
+#datosPersonales span:first-child {
+  font-weight: bold;
+}
+
+#datosPersonales ul {
+  float: left;
+}
+
+article#informatica ul {  
+  padding-left: 70px;
+}
+
+article#informatica li {
+  list-style-type: circle;  
+}
+
+/* footer*/
+
+footer {
+  text-align: right;
+  font-style: oblique;
+  border-top: 1px solid black;  
+  margin-top: 50px;
+  padding: 15px;
+}

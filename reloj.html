@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head><title>Reloj</title>
+	  <meta charset="UTF-8">
+
+<script type="text/javascript">
+
+function mostrar_fecha( ) {
+	var fecha = new Date();
+	var horas = fecha.getHours();
+	var minutos = fecha.getMinutes();
+	var segundos = fecha.getSeconds();
+	var ms = fecha.getMilliseconds();
+  var cl = document.getElementById("fecha"); 
+  cl.innerHTML = horas + " horas, " + minutos + " minutos, " + segundos + " segundos, " + ms + " ms.";
+}
+function arrancar(){
+	var idInterval = setInterval(mostrar_fecha,1);
+	var reloj=document.getElementById('fecha');
+	var relojArrancado = true;
+	//reloj.addEventListener('dblclick', function(){idInterval = setInterval(mostrar_fecha,1)});
+	reloj.addEventListener('click', function(){if (relojArrancado) {window.clearInterval(idInterval);} else {idInterval = setInterval(mostrar_fecha,1);} relojArrancado = !relojArrancado;});
+	/*
+		if (relojArrancado == true) {
+			window.clearInterval(idInterval); 
+			relojArrancado = false;
+		} else {
+			idInterval = setInterval(mostrar_fecha,1);
+			relojArrancado = true;
+		});
+	*/
+}
+window.onload = arrancar;
+</script>
+<style type="text/css">
+div {
+	height: 20px;
+	width: 320px;
+	margin: 10px;
+	float: left;
+	text-align: center;
+	padding: 20px;
+	background-color: #F2F1EE;
+	border: 3px solid #00F;
+	border-radius: 24px;
+}
+</style>
+</head>
+
+<body>
+<h2>Reloj</h2>
+
+<div id="fecha"></div>
+</body>
+</html>
